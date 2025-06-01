@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@import "tailwindcss";
+:root{
+    --primarycolor : #8D9B6A;
+    --secondarycolor : #8A9eA7;
+    --backgroundcolor : #E8DFE0;
+    --optionalcolor1 : #DAB692;
+    --optionalcolor2 : #8F5B34;
+}
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--backgroundcolor);
+}
+.textfont{
+    font-family: "Dancing Script", cursive;
+
+}
