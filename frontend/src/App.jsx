@@ -4,6 +4,7 @@ import LoginPage from './Pages/LoginPage'
 // import Dashboard from './component/Dashboard'
 import DashboardPage from './Pages/DashboardPage'
 import Main from './component/Dashboard/Layout/Main'
+import EmployeeTable from './component/EmployeeMgmt/EmployeeTable'
 
 
 function App() {
@@ -25,9 +26,11 @@ function App() {
         element: <DashboardPage/>
       },
       {
-        path: "/employee-management",
-        element: <EmployeeManagement/>
-      }
+        path: "/dashboard/employee-table",
+        element: <EmployeeTable/>
+
+      },
+     
     ]
    }
   ])
