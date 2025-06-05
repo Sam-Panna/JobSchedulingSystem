@@ -28,7 +28,7 @@ const EmployeeTable = () => {
     },
   ]
   return (
-    <div className='p-8'>
+    <div className='p-4'>
       <div className='flex justify-between w-full'>
         <h1 className='text-4xl text-gray-800 font-b'>Employee Management</h1>
         <button className='bg-[#8D9B6A] rounded-md px-4 py-4 text-gray-800 font-bold'>Add Employee</button>

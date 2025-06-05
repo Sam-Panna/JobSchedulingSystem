@@ -6,11 +6,11 @@ import { Outlet } from 'react-router-dom'
 const Main = () => {
   return (
     <div className='flex w-full '>
-      <div className='h-screen w-[10rem]'>
+      <div className='h-screen w-[16rem]'>
         <Sidebar />
       </div>
       <div className='flex flex-col w-full'>
-        <div className='w-full h-[4rem] border-2 border-black'>
+        <div className='w-full h-[4rem] shadow-2xl'>
           <Topbar />
         </div>
         <div className='h-[calc(100vh-8rem)]'>
