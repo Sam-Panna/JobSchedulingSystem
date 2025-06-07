@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const EmployeeTable = () => {
   const data = [
@@ -31,7 +32,7 @@ const EmployeeTable = () => {
     <div className='p-4'>
       <div className='flex justify-between w-full'>
         <h1 className='text-4xl text-gray-800 font-b'>Employee Management</h1>
-        <button className='bg-[#8D9B6A] rounded-md px-4 py-4 text-gray-800 font-bold'>Add Employee</button>
+        <Link to= "/dashboard/add-employee"><button className='bg-[#8D9B6A] rounded-md px-4 py-4 text-gray-800 font-bold'>Add Employee</button></Link>
       </div>
       <div className='flex justify-center '>
         <input type="search" name="" id="" className='border-2 rounded-2xl w-2xl p-1.5' placeholder='Search'  />

@@ -5,6 +5,7 @@ import LoginPage from './Pages/LoginPage'
 import DashboardPage from './Pages/DashboardPage'
 import Main from './component/Dashboard/Layout/Main'
 import EmployeeTable from './component/EmployeeMgmt/EmployeeTable'
+import EmployeeForm from './component/EmployeeMgmt/EmployeeForm'
 
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
         path: "/dashboard/employee-table",
         element: <EmployeeTable/>
 
+      },
+      {
+        path:"/dashboard/add-employee",
+        element: <EmployeeForm/>
       },
      
     ]
