@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs"
 import db from "../db/db.js"
+import jwt from "jsonwebtoken"
 export const addEmployee = (req, res)=>{
     const{username, password_hash, full_name} = req.body
 
@@ -14,12 +15,41 @@ export const addEmployee = (req, res)=>{
         }else{
             const q2 = "INSERT INTO employees(user_id, full_name) VALUES (?, ?)"
             db.query(q2, [result.insertId, full_name], (err2, result2)=>{
-                if(err){
-                   return res.send("Error while sending employee data");
+                if(err2){
+                   return console.log("Error while sending employee data", err2);
                 }
                 return res.send({message: "Employee created sucessfully"});
             })
         }
     })
 
+}
+
+export const login = (req, res) =>{
+    const{username, password} = req.body
+
+    const q = "SELECT * FROM users WHERE username = ?";
+
+    db.query(q,[username], (err, data) =>{
+        if(err){
+            return res.send({err, message: "Databse error"});
+            
+        }
+        if(data.length === 0){
+            return res.send({ message:"User not found"});
+        }
+        console.log(data);
+        
+
+        const CheckPassword = bcrypt.compareSync(password, data[0].password_hash);
+        if(!CheckPassword){
+            return res.send({message: "Password is incorrect"});
+        }
+
+        const token = jwt.sign({id: data[0].id},"secretkey");
+        return res.send({message : "Login successful", data, token});
+        
+    })
+
+    
 }
