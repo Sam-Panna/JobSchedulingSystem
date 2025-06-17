@@ -2,23 +2,33 @@ import bcrypt from "bcryptjs"
 import db from "../db/db.js"
 import jwt from "jsonwebtoken"
 export const addEmployee = (req, res)=>{
-    const{username, password_hash, full_name} = req.body
+    const{username, full_name, skills, designation, address} = req.body
+    const password_hash = "12345678";
 
     const salt = bcrypt.genSaltSync();
     const hashPassword = bcrypt.hashSync(password_hash, salt);
     console.log(hashPassword,":hashpassword");
+
+
     
     const q = "INSERT INTO users (username, password_hash, role) VALUES (? , ?, ?)"
-    db.query(q, [username, hashPassword, "employee"], (err, result) =>{
+    db.query(q, [username, hashPassword,  "employee"], (err, result) =>{
         if(err){
             console.error(err);
         }else{
-            const q2 = "INSERT INTO employees(user_id, full_name) VALUES (?, ?)"
-            db.query(q2, [result.insertId, full_name], (err2, result2)=>{
+            const q2 = "INSERT INTO employees(user_id, full_name ,  designation, address) VALUES (?, ?, ?, ?)"
+            db.query(q2, [result.insertId, full_name, designation, address], (err2, result2)=>{
                 if(err2){
                    return console.log("Error while sending employee data", err2);
                 }
-                return res.send({message: "Employee created sucessfully"});
+               const q3 = "INSERT INTO skills(employee_id, skill_name) VALUES(?,?)" 
+               db.query(q3, [result2.insertId, skills],(err3, result3)=>{
+                if(err3){
+                    return console.log("error while sending skills data", err3);
+                    
+                }
+                 return res.send({message: "Employee created sucessfully"});
+               })
             })
         }
     })
