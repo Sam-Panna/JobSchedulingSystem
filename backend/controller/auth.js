@@ -37,6 +37,8 @@ export const addEmployee = (req, res)=>{
 
 export const login = (req, res) =>{
     const{username, password} = req.body
+    console.log(username, password);
+    
 
     const q = "SELECT * FROM users WHERE username = ?";
 
@@ -56,8 +58,11 @@ export const login = (req, res) =>{
             return res.send({message: "Password is incorrect"});
         }
 
-        const token = jwt.sign({id: data[0].id},"secretkey");
-        return res.send({message : "Login successful", data, token});
+        const token = jwt.sign({id: data[0].id , role: data[0].role},"secretkey");
+        return res.cookie("accessToken",token,{
+            httpOnly: false, 
+            maxAge: 30*24*60*60*1000
+        }).send({message : "Login successful", data, token});
         
     })
 

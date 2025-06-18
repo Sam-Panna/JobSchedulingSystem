@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Github, Chrome } from 'lucide-react';
 import img from '../../image/login.svg'
+import axios from 'axios';
+import {useNavigate} from "react-router-dom"
 
 const Login = () => {
     const [formData, setFormData] = useState({
-        email: '',
-        password: ''
+        username: '',
+        password: '',
+        
     });
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
@@ -32,10 +36,10 @@ const Login = () => {
 
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!formData.email) {
-            newErrors.email = 'Email is required';
-        } else if (!emailRegex.test(formData.email)) {
-            newErrors.email = 'Please enter a valid email';
+        if (!formData.username) {
+            newErrors.username = 'Email is required';
+        } else if (!emailRegex.test(formData.username)) {
+            newErrors.username = 'Please enter a valid email';
         }
 
         // Password validation
@@ -57,10 +61,15 @@ const Login = () => {
         setIsLoading(true);
 
         // Simulate API call
-        setTimeout(() => {
+        await axios.post("http://localhost:5000/api/login", formData).then((res)=>{
+            console.log(res);
             setIsLoading(false);
-            alert(`${isSignUp ? 'Account created' : 'Login'} successful!`);
-        }, 2000);
+            navigate("/dashboard");
+            
+        }).catch((err)=>{
+                console.log(err);
+                
+        })
     };
 
     const handleSocialLogin = (provider) => {
@@ -122,7 +131,7 @@ const Login = () => {
 
                             {/* Form */}
                             <div className="space-y-6">
-                                <form action="">
+                                <form action="" onSubmit={handleSubmit}>
                                     {/* Email Input */}
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium text-gray-700">Email Address</label>
@@ -130,7 +139,7 @@ const Login = () => {
                                             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                                             <input
                                                 type="email"
-                                                name="email"
+                                                name="username"
                                                 value={formData.email}
                                                 onChange={handleInputChange}
                                                 placeholder="Enter your email"
