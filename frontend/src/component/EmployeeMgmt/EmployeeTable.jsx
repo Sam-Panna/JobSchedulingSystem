@@ -1,8 +1,40 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const EmployeeTable = () => {
-  const data = [
+  const [data, setData] = useState([]);
+  const fetchData = () =>{
+     axios.get("http://localhost:5000/api/employee-data").then((res)=>{
+    console.log(res);
+    setData(res.data.data);
+    
+  }).catch((err)=>{
+    console.log(err);
+    
+  }) 
+  }
+ useEffect(()=>{
+    fetchData();
+ },[])
+
+ const handleEdit = (e) =>{
+
+ }
+
+ const handleDelete =(id) =>{
+  axios.post(`http//localhost:5000/api/del-employee/${id}`).then((res)=>{
+      console.log(res);
+      fetchData();
+      
+  }).catch((err)=>{
+    console.log(err);
+    
+  })
+
+ }
+
+  const data1 = [
     {
       sn : 1,
       employeename : "Sampanna",
@@ -69,10 +101,10 @@ const EmployeeTable = () => {
                 return(
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {item.sn}
+                {index+1}
               </th>
               <td class="px-6 py-4">
-                {item.employeename}
+                {item.full_name}
               </td>
               <td class="px-6 py-4">
                 {item.address}
@@ -81,12 +113,12 @@ const EmployeeTable = () => {
                 {item.designation}
               </td>
               <td class="px-6 py-4">
-               {item.skills}
+               {item.skill_name}
               </td>
               
                <td class="px-6 py-4 flex gap-2 text-gray-800 ">
-                <button className='bg-blue-500 rounded-md px-4 py-1'>Edit</button>
-                <button className='bg-red-600 rounded-md px-4 py-1'>Delete</button>
+                <button className='bg-blue-500 rounded-md px-4 py-1' onClick={() => handleEdit(item.id)}>Edit</button>
+                <button className='bg-red-600 rounded-md px-4 py-1' onClick={() => handleDelete(item.id) }>Delete</button>
                 
               </td>
             </tr>
