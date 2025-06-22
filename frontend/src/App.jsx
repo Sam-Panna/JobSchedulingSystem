@@ -6,6 +6,7 @@ import DashboardPage from './Pages/DashboardPage'
 import Main from './component/Dashboard/Layout/Main'
 import EmployeeTable from './component/EmployeeMgmt/EmployeeTable'
 import EmployeeForm from './component/EmployeeMgmt/EmployeeForm'
+import EditEmployee from './component/form/EditEmployee'
 
 
 function App() {
@@ -35,6 +36,11 @@ function App() {
         path:"/dashboard/add-employee",
         element: <EmployeeForm/>
       },
+      {
+        path:"/dashboard/edit-employee/:id",
+        element: <EditEmployee/>
+      },
+
      
     ]
    }

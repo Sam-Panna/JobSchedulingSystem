@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const EmployeeTable = () => {
+  const navigation = useNavigate();
   const [data, setData] = useState([]);
   const fetchData = () =>{
      axios.get("http://localhost:5000/api/employee-data").then((res)=>{
@@ -18,12 +19,14 @@ const EmployeeTable = () => {
     fetchData();
  },[])
 
- const handleEdit = (e) =>{
+ const handleEdit = (id) =>
+  {
+    navigation(`/dashboard/edit-employee/${id}`);
 
  }
 
  const handleDelete =(id) =>{
-  axios.post(`http//localhost:5000/api/del-employee/${id}`).then((res)=>{
+  axios.post(`http://localhost:5000/api/del-employee/${id}`).then((res)=>{
       console.log(res);
       fetchData();
       
@@ -117,8 +120,8 @@ const EmployeeTable = () => {
               </td>
               
                <td class="px-6 py-4 flex gap-2 text-gray-800 ">
-                <button className='bg-blue-500 rounded-md px-4 py-1' onClick={() => handleEdit(item.id)}>Edit</button>
-                <button className='bg-red-600 rounded-md px-4 py-1' onClick={() => handleDelete(item.id) }>Delete</button>
+                <button className='bg-blue-500 rounded-md px-4 py-1' onClick={() => handleEdit(item.userId)}>Edit</button>
+                <button className='bg-red-600 rounded-md px-4 py-1' onClick={() => handleDelete(item.userId) }>Delete</button>
                 
               </td>
             </tr>
