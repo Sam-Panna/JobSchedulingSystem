@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { User, MapPin, Briefcase, Code, Plus, X } from 'lucide-react'
+import axios from 'axios'
 
 const EmployeeForm = () => {
   const [data, setData] = useState({
@@ -36,13 +37,21 @@ const EmployeeForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
+    console.log(data);
+    
     
     try {
       // Simulate API call for demo
       await new Promise(resolve => setTimeout(resolve, 1500))
       
       // In real implementation, uncomment this:
-      // await axios.post('http://localhost:5000/api/addemployees', data)
+      await axios.post('http://localhost:5000/api/addemployees', data).then((res)=>{
+        console.log(res);
+        
+      }).catch((err)=>{
+        console.log(err);
+        
+      })
       
       setShowSuccess(true)
       setData({
@@ -62,11 +71,11 @@ const EmployeeForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-amber-50 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         {/* Success Message */}
         {showSuccess && (
-                      <div className="mb-6 bg-green-50 border-l-4 border-green-800 p-4 rounded-lg shadow-sm animate-pulse">
+          <div className="mb-6 bg-green-50 border-l-4 border-green-800 p-4 rounded-lg shadow-sm animate-pulse">
             <div className="flex">
               <div className="flex-shrink-0">
                 <svg className="h-5 w-5 text-green-800" viewBox="0 0 20 20" fill="currentColor">
@@ -84,16 +93,16 @@ const EmployeeForm = () => {
 
         {/* Main Form */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-          <div className="bg-gradient-to-r from-green-800 to-green-900 px-8 py-6">
+          <div className="px-8 py-6 bg-[#8E3B46]"  >
             <h1 className="text-3xl font-bold text-white">Add New Employee</h1>
-            <p className="text-green-100 mt-2">Enter employee details below</p>
+            <p className="text-amber-100 mt-2">Enter employee details below</p>
           </div>
 
           <div className="p-8 space-y-6">
             {/* Full Name */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <User size={16} className="text-green-800" />
+                <User size={16} style={{ color: '#8E3B46' }} />
                 Full Name
               </label>
               <input 
@@ -102,7 +111,10 @@ const EmployeeForm = () => {
                 type="text" 
                 onChange={handleChange}
                 placeholder="Enter employee full name"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                style={{ focusRingColor: '#8E3B46' }}
+                onFocus={(e) => e.target.style.outline = '2px solid #8E3B46'}
+                onBlur={(e) => e.target.style.outline = 'none'}
                 required
               />
             </div>
@@ -110,7 +122,7 @@ const EmployeeForm = () => {
             {/* Username */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <User size={16} className="text-green-800" />
+                <User size={16} style={{ color: '#8E3B46' }} />
                 Username
               </label>
               <input 
@@ -119,7 +131,9 @@ const EmployeeForm = () => {
                 type="text" 
                 onChange={handleChange}
                 placeholder="Enter username"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                onFocus={(e) => e.target.style.outline = '2px solid #8E3B46'}
+                onBlur={(e) => e.target.style.outline = 'none'}
                 required
               />
             </div>
@@ -127,7 +141,7 @@ const EmployeeForm = () => {
             {/* Address */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <MapPin size={16} className="text-green-800" />
+                <MapPin size={16} style={{ color: '#8E3B46' }} />
                 Address
               </label>
               <input 
@@ -136,7 +150,9 @@ const EmployeeForm = () => {
                 type="text" 
                 onChange={handleChange}
                 placeholder="Enter employee address"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                onFocus={(e) => e.target.style.outline = '2px solid #8E3B46'}
+                onBlur={(e) => e.target.style.outline = 'none'}
                 required
               />
             </div>
@@ -144,7 +160,7 @@ const EmployeeForm = () => {
             {/* Designation */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <Briefcase size={16} className="text-green-800" />
+                <Briefcase size={16} style={{ color: '#8E3B46' }} />
                 Designation
               </label>
               <input 
@@ -153,7 +169,9 @@ const EmployeeForm = () => {
                 type="text" 
                 onChange={handleChange}
                 placeholder="Enter employee designation"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                onFocus={(e) => e.target.style.outline = '2px solid #8E3B46'}
+                onBlur={(e) => e.target.style.outline = 'none'}
                 required
               />
             </div>
@@ -161,7 +179,7 @@ const EmployeeForm = () => {
             {/* Skills */}
             <div className="space-y-2">
               <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <Code size={16} className="text-green-800" />
+                <Code size={16} style={{ color: '#8E3B46' }} />
                 Skills
               </label>
               
@@ -170,13 +188,18 @@ const EmployeeForm = () => {
                   value={currentSkill}
                   onChange={(e) => setCurrentSkill(e.target.value)}
                   placeholder="Enter a skill"
-                  className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-800 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                  className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                  onFocus={(e) => e.target.style.outline = '2px solid #8E3B46'}
+                  onBlur={(e) => e.target.style.outline = 'none'}
                   onKeyPress={(e) => e.key === 'Enter' && handleAddSkill(e)}
                 />
                 <button
                   type="button"
                   onClick={handleAddSkill}
-                  className="px-4 py-3 bg-green-800 text-white rounded-xl hover:bg-green-900 transition-colors duration-200 flex items-center gap-2"
+                  className="px-4 py-3 text-white rounded-xl hover:opacity-90 transition-colors duration-200 flex items-center gap-2"
+                  style={{ backgroundColor: '#8E3B46' }}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#7A4C2A'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = '#8E3B46'}
                 >
                   <Plus size={16} />
                   Add
@@ -189,13 +212,21 @@ const EmployeeForm = () => {
                   {data.skills.map((skill, index) => (
                     <span 
                       key={index}
-                      className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium border border-green-300"
+                      className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium border"
+                      style={{ 
+                        backgroundColor: '#F3E8D8', 
+                        color: '#8E3B46',
+                        borderColor: '#D4B896'
+                      }}
                     >
                       {skill}
                       <button
                         type="button"
                         onClick={() => handleRemoveSkill(skill)}
-                        className="text-green-800 hover:text-green-900 transition-colors"
+                        className="transition-colors"
+                        style={{ color: '#8E3B46' }}
+                        onMouseEnter={(e) => e.target.style.color = '#7A4C2A'}
+                        onMouseLeave={(e) => e.target.style.color = '#8E3B46'}
                       >
                         <X size={14} />
                       </button>
@@ -209,7 +240,14 @@ const EmployeeForm = () => {
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-green-800 to-green-900 text-white py-4 rounded-xl font-semibold text-lg hover:from-green-900 hover:to-green-950 focus:ring-4 focus:ring-green-800 focus:ring-opacity-30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full text-white py-4 rounded-xl font-semibold text-lg focus:ring-4 focus:ring-opacity-30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+              style={{ 
+                background: 'linear-gradient(to right, #8E3B46, #7A4C2A)',
+                focusRingColor: '#8E3B46'
+              }}
+              onMouseEnter={(e) => e.target.style.background = 'linear-gradient(to right, #7A4C2A, #664020)'}
+              onMouseLeave={(e) => e.target.style.background = 'linear-gradient(to right, #8E3B46, #7A4C2A)'}
+              onClick={handleSubmit}
             >
               {isSubmitting ? (
                 <div className="flex items-center justify-center gap-2">

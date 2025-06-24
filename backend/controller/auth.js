@@ -21,17 +21,22 @@ export const addEmployee = (req, res)=>{
                 if(err2){
                    return console.log("Error while sending employee data", err2);
                 }
-               const q3 = "INSERT INTO skills(employee_id, skill_name) VALUES(?,?)" 
-               db.query(q3, [result2.insertId, skills],(err3, result3)=>{
+               skills.map(item =>{
+                const q3 = "INSERT INTO skills(employee_id, skill_name) VALUES(?,?)" 
+               db.query(q3, [result2.insertId, item],(err3, result3)=>{
                 if(err3){
                     return console.log("error while sending skills data", err3);
                     
                 }
                  return res.send({message: "Employee created sucessfully"});
                })
+               })
             })
         }
     })
+
+   
+    
 
 }
 

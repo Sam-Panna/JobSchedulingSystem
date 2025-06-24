@@ -9,7 +9,7 @@ const Main = () => {
       <div className='h-screen w-[16rem] fixed'>
         <Sidebar />
       </div>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full shadow-2xl bg-gradient-to-r from-[#8E3B46] to-[#A9645B]'>
         <div className='w-full h-[4rem] shadow-2xl'>
           <Topbar />
         </div>

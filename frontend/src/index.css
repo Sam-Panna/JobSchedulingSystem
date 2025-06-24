@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
 @import "tailwindcss";
 :root{
-    --primarycolor : #8D9B6A;
-    --secondarycolor : #8A9eA7;
-    --backgroundcolor : #E8DFE0;
-    --optionalcolor1 : #DAB692;
-    --optionalcolor2 : #8F5B34;
+    --primarycolor : #8E3B46;
+    --secondarycolor : #F7E8D0;
+    --backgroundcolor : #2E2E2E;
+    --optionalcolor1 : #2E2E2E;
+    --optionalcolor2 : #F4A259;
 }
 *{
     box-sizing: border-box;

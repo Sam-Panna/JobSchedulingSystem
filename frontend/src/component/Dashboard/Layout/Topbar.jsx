@@ -4,7 +4,7 @@ import { GoBellFill } from "react-icons/go";
 
 const Topbar = () => {
   return (
-    <div className='flex gap-3 justify-end items-center p-2'>
+    <div className='flex gap-3 justify-end items-center p-2 '>
       <div className=''><GoBellFill /></div>
       <div className=''>
           <h2>Sam</h2>
