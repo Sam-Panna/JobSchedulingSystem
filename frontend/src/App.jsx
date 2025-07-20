@@ -7,6 +7,7 @@ import Main from './component/Dashboard/Layout/Main'
 import EmployeeTable from './component/EmployeeMgmt/EmployeeTable'
 import EmployeeForm from './component/EmployeeMgmt/EmployeeForm'
 import EditEmployee from './component/form/EditEmployee'
+import TaskForm from './component/TaskMgmt/TaskForm'
 
 
 function App() {
@@ -40,8 +41,12 @@ function App() {
         path:"/dashboard/edit-employee/:id",
         element: <EditEmployee/>
       },
-
-     
+      
+      {
+        path: "/dashboard/task-management" ,
+        element: <TaskForm />
+      },
+      
     ]
    }
   ])

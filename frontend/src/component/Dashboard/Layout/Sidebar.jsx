@@ -17,7 +17,7 @@ const Sidebar = () => {
         <ul className='flex flex-col gap-1.5'>
             <li className='flex items-center gap-2'><MdDashboard/><Link to= "/dashboard">Dashboard</Link></li>
             <li className='flex items-center gap-2'><IoIosPeople/><Link to= "/dashboard/employee-table">Employee Management</Link></li>
-            <li className='flex items-center gap-2'><FaClipboardList/>Task Management</li>
+            <li className='flex items-center gap-2'><FaClipboardList/><Link to="/dashboard/task-management">Task Management</Link></li>
             <li className='flex items-center gap-2'><IoBarChart />Performance Report</li>
             <li className='flex items-center gap-2'><FaUserCircle />Profile</li>
         </ul>
