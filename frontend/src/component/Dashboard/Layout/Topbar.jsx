@@ -9,7 +9,11 @@ const Topbar = () => {
       <div className=''>
           <h2>Sam</h2>
       </div>
-      <div className='border-2 border-black size-10'><img src="" alt="hhjjjj" /></div>
+      <div className='border-2 border-black size-10'> <img
+          src="https://ui-avatars.com/api/?name=Sam"
+          alt="User avatar"
+        />
+        </div>
     </div>
   )
 }

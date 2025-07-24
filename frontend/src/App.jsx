@@ -8,51 +8,52 @@ import EmployeeTable from './component/EmployeeMgmt/EmployeeTable'
 import EmployeeForm from './component/EmployeeMgmt/EmployeeForm'
 import EditEmployee from './component/form/EditEmployee'
 import TaskForm from './component/TaskMgmt/TaskForm'
+import ManageTask from './component/TaskMgmt/ManageTask'
+import AdminProfile from './component/Profile/AdminProfile'
 
 
 function App() {
 
-  
-
   const router = createBrowserRouter([
-   {
-     path : "/",
-     element : <LoginPage/>
-    // element: <DashboardPage/>
-   },
-   {
-    path: "/dashboard",
-    element: <Main/>,
-    children: [
-      {
-        path: "",
-        element: <DashboardPage/>
-      },
-      {
-        path: "/dashboard/employee-table",
-        element: <EmployeeTable/>
+    {
+      path: "/",
+      element: <LoginPage />
+    },
+    {
+      path: "/dashboard",
+      element: <Main />,
+      children: [
+        {
+          path: "",
+          element: <DashboardPage />
+        },
+        {
+          path: "employee-table",
+          element: <EmployeeTable />
+        },
+        {
+          path: "add-employee",
+          element: <EmployeeForm />
+        },
+        {
+          path: "edit-employee/:id",
+          element: <EditEmployee />
+        },
+        {
+          path: "task-management",
+          element: <ManageTask />
+        },
+       {
+          path: "admin-profile",
+          element: <AdminProfile />
+        }
+      ]
+    }
+  ]);
 
-      },
-      {
-        path:"/dashboard/add-employee",
-        element: <EmployeeForm/>
-      },
-      {
-        path:"/dashboard/edit-employee/:id",
-        element: <EditEmployee/>
-      },
-      
-      {
-        path: "/dashboard/task-management" ,
-        element: <TaskForm />
-      },
-      
-    ]
-   }
-  ])
   return (
     <>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
 
   )

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { User, Lock, Save, ArrowLeft, AlertCircle, UserCircle, Briefcase, Activity, Award } from 'lucide-react';
+import {useNavigate} from "react-router-dom";
 
 const EditEmployee = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState({
     username: "",
     password_hash: "",
@@ -113,7 +115,7 @@ const EditEmployee = () => {
   
   const handleBack = () => {
     // Navigation back implementation
-    alert("Navigating back to employee list");
+    navigate("/dashboard/employee-table");
   };
   
   if (loading) {

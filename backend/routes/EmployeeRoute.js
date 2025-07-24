@@ -7,4 +7,6 @@ routes.post("/edit-employee/:id",employeeEdit);
 routes.post("/del-employee/:id", employeeDelete);
 routes.get("/single-employee/:id", singleEmployeeData);
 
+
+
 export default routes;
