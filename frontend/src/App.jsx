@@ -10,6 +10,9 @@ import EditEmployee from './component/form/EditEmployee'
 import TaskForm from './component/TaskMgmt/TaskForm'
 import ManageTask from './component/TaskMgmt/ManageTask'
 import AdminProfile from './component/Profile/AdminProfile'
+import EmployeeProfile from './component/Profile/EmployeeProfile'
+import EmployeeMain from './component/EmployeeDashboard/Layout/EmployeeMain'
+import EmployeeDashboard from './component/EmployeeDashboard/EmployeeDashboard'
 
 
 function App() {
@@ -43,9 +46,28 @@ function App() {
           path: "task-management",
           element: <ManageTask />
         },
+        {
+          path:"task-form",
+          element:<TaskForm/>
+        },
        {
           path: "admin-profile",
           element: <AdminProfile />
+        },
+        {
+          path:"employee-profile",
+          element:<EmployeeProfile/>
+        }
+      ]
+    },
+    {
+       path: "/employee-dashboard",
+      element: <EmployeeMain/>,
+      children: [
+        {
+          path:"",
+          element:<EmployeeDashboard/>
+          
         }
       ]
     }

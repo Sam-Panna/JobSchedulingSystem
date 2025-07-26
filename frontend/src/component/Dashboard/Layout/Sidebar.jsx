@@ -11,6 +11,7 @@ const Sidebar = () => {
   return (
     <div className='flex flex-col h-full w-full p-2 bg-[#2B1A1D] text-[#E8DFE0] items-center gap-2'>
       <div className=' w-[60%]  h-[5rem]  '><img src={logo} alt="logo" className='w-full h-full ' /></div>
+      <h1>Admin</h1>
       <div className='flex justify-center '>
         <input type="search" name="" id="" className='border-2 rounded-lg w-[100%] p-1 bg-white text-[#263437]' placeholder='Search' />
       </div>

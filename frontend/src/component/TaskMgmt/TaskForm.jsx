@@ -18,7 +18,6 @@ const TaskForm = ({ onTaskAdded, onCancel }) => {
     e.preventDefault();
     try {
       const res = await fetch("http://localhost:5000/api/add-tasks", {
- 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -38,113 +37,214 @@ const TaskForm = ({ onTaskAdded, onCancel }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="flex items-center justify-center bg-[#2E2E2E] py-10">
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-lg shadow-lg p-8 w-full max-w-2xl relative"
+        className="rounded-lg shadow-xl p-8 w-full max-w-2xl relative border-2"
+        style={{
+          backgroundColor: '#F7E8D0',
+          borderColor: '#8E3B46'
+        }}
       >
-        <h2 className="text-2xl font-semibold mb-6 text-center text-blue-700">Add New Task</h2>
+        <h2 
+          className="text-2xl font-bold mb-6 text-center"
+          style={{ color: '#2E2E2E' }}
+        >
+          Add New Task
+        </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Title */}
           <div>
-            <label className="text-sm font-medium text-gray-700">Title</label>
+            <label 
+              className="block text-sm font-semibold mb-2"
+              style={{ color: '#2E2E2E' }}
+            >
+              📝 Task Title
+            </label>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-3 py-2 border rounded shadow-sm focus:ring focus:ring-blue-200"
+              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:scale-105"
+              style={{
+                borderColor: '#8E3B46',
+                backgroundColor: '#ffffff',
+                color: '#2E2E2E'
+              }}
+              placeholder="Enter task title"
             />
           </div>
 
           {/* Priority */}
           <div>
-            <label className="text-sm font-medium text-gray-700">Priority</label>
+            <label 
+              className="block text-sm font-semibold mb-2"
+              style={{ color: '#2E2E2E' }}
+            >
+              🚨 Priority Level
+            </label>
             <select
               name="priority"
               value={formData.priority}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-3 py-2 border rounded shadow-sm"
+              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                borderColor: '#8E3B46',
+                backgroundColor: '#ffffff',
+                color: '#2E2E2E'
+              }}
             >
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
+              <option value="Low">🟢 Low Priority</option>
+              <option value="Medium">🟡 Medium Priority</option>
+              <option value="High">🔴 High Priority</option>
             </select>
           </div>
 
           {/* Description */}
           <div className="sm:col-span-2">
-            <label className="text-sm font-medium text-gray-700">Description</label>
+            <label 
+              className="block text-sm font-semibold mb-2"
+              style={{ color: '#2E2E2E' }}
+            >
+              📄 Task Description
+            </label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-3 py-2 border rounded shadow-sm"
+              rows="4"
+              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 resize-vertical"
+              style={{
+                borderColor: '#8E3B46',
+                backgroundColor: '#ffffff',
+                color: '#2E2E2E'
+              }}
+              placeholder="Describe the task in detail..."
             />
           </div>
 
           {/* Deadline */}
           <div>
-            <label className="text-sm font-medium text-gray-700">Deadline</label>
+            <label 
+              className="block text-sm font-semibold mb-2"
+              style={{ color: '#2E2E2E' }}
+            >
+              📅 Deadline
+            </label>
             <input
               type="date"
               name="deadline"
               value={formData.deadline}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-3 py-2 border rounded shadow-sm"
+              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                borderColor: '#8E3B46',
+                backgroundColor: '#ffffff',
+                color: '#2E2E2E'
+              }}
             />
           </div>
 
           {/* Status */}
           <div>
-            <label className="text-sm font-medium text-gray-700">Status</label>
+            <label 
+              className="block text-sm font-semibold mb-2"
+              style={{ color: '#2E2E2E' }}
+            >
+              📊 Current Status
+            </label>
             <select
               name="status"
               value={formData.status}
               onChange={handleChange}
               required
-              className="w-full mt-1 px-3 py-2 border rounded shadow-sm"
+              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                borderColor: '#8E3B46',
+                backgroundColor: '#ffffff',
+                color: '#2E2E2E'
+              }}
             >
-              <option value="Pending">Pending</option>
-              <option value="Ongoing">Ongoing</option>
-              <option value="Completed">Completed</option>
+              <option value="Pending">⏳ Pending</option>
+              <option value="Ongoing">🔄 Ongoing</option>
+              <option value="Completed">✅ Completed</option>
             </select>
           </div>
 
           {/* Required Skill */}
           <div className="sm:col-span-2">
-            <label className="text-sm font-medium text-gray-700">Required Skill</label>
+            <label 
+              className="block text-sm font-semibold mb-2"
+              style={{ color: '#2E2E2E' }}
+            >
+              🛠️ Required Skills
+            </label>
             <input
               name="requiredSkill"
               value={formData.requiredSkill}
               onChange={handleChange}
-              placeholder="e.g., React, Python"
+              placeholder="e.g., React, Python, Data Analysis, Design"
               required
-              className="w-full mt-1 px-3 py-2 border rounded shadow-sm"
+              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2"
+              style={{
+                borderColor: '#8E3B46',
+                backgroundColor: '#ffffff',
+                color: '#2E2E2E'
+              }}
             />
+            <p 
+              className="text-xs mt-1 opacity-70"
+              style={{ color: '#2E2E2E' }}
+            >
+              Separate multiple skills with commas
+            </p>
           </div>
         </div>
 
         {/* Buttons */}
-        <div className="mt-6 flex justify-end gap-3">
+        <div className="mt-8 flex justify-end gap-4">
           <button
             type="button"
             onClick={onCancel}
-            className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+            className="px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:opacity-80 hover:scale-105 border-2"
+            style={{
+              backgroundColor: '#2E2E2E',
+              color: '#F7E8D0',
+              borderColor: '#2E2E2E'
+            }}
           >
-            Cancel
+            ❌ Cancel
           </button>
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="px-6 py-3 rounded-lg font-semibold transition-all duration-200 hover:opacity-90 hover:scale-105 shadow-lg"
+            style={{
+              backgroundColor: '#8E3B46',
+              color: '#F7E8D0'
+            }}
           >
-            Add Task
+            ✅ Create Task
           </button>
+        </div>
+
+        {/* Info Box */}
+        <div 
+          className="mt-6 p-4 rounded-lg border-l-4"
+          style={{
+            backgroundColor: '#ffffff',
+            borderLeftColor: '#F4A259',
+            color: '#2E2E2E'
+          }}
+        >
+          <p className="text-sm">
+            <strong>💡 Smart Assignment:</strong> This task will be automatically assigned to the most suitable employee based on their skills and availability.
+          </p>
         </div>
       </form>
     </div>
