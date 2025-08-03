@@ -130,13 +130,24 @@ export const singleEmployeeData = (req, res) =>{
     console.log(id);
     
 
-    const q = "SELECT u.*,e.*,s.* FROM users u JOIN employees e ON u.id = e.user_id JOIN skills s ON e.id = s.employee_id WHERE u.id = ?"
-    db.query(q, [id], (err,result) =>{
+    const q = "SELECT u.*,e.*,e.id as emp_id,s.* FROM users u JOIN employees e ON u.id = e.user_id JOIN skills s ON e.id = s.employee_id WHERE u.id = ?"
+    db.query(q, [parseInt(id)], (err,result) =>{
         if(err){
 
             return res.status(500).send(err);
         }
         return res.status(200).send({message: "edit successful", result});
 
+    })
+}
+
+export const getSingleEmployee = (req, res) =>{
+    const id = req.params.id;
+    console.log(id);
+
+    const q = "Select * From employees Where id = ?"
+    db.query(q, [id],(err,result)=>{
+        if(err) return res.status(500).send(err);
+        return res.status(200).send(result);
     })
 }

@@ -53,24 +53,44 @@ const Login = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-        if (!validateForm()) return;
+  if (!validateForm()) return;
 
-        setIsLoading(true);
+  setIsLoading(true);
 
-        // Simulate API call
-        await axios.post("http://localhost:5000/api/login", formData).then((res)=>{
-            console.log(res);
-            setIsLoading(false);
-            navigate("/dashboard");
-            
-        }).catch((err)=>{
-                console.log(err);
-                
-        })
-    };
+  try {
+    const res = await axios.post("http://localhost:5000/api/login", formData);
+    setIsLoading(false);
+
+    const response = res.data;
+     // ✅ use res.data directly
+
+     console.log(res);
+     
+
+    if (response.message === "Login successful") {
+      const role = response.data[0].role;
+
+      if (role === "admin") {
+        navigate("/dashboard");
+      } else if (role === "employee") {
+        navigate("/employee-dashboard");
+      } else {
+        alert("Unknown user role. Cannot navigate.");
+      }
+    } else {
+      alert(response.message || "Login failed");
+    }
+  } catch (err) {
+    setIsLoading(false);
+    console.error("Login error:", err);
+    alert("Login failed. Please check your credentials.");
+  }
+};
+
+
 
     const handleSocialLogin = (provider) => {
         alert(`${provider} login clicked`);
@@ -140,7 +160,7 @@ const Login = () => {
                                             <input
                                                 type="email"
                                                 name="username"
-                                                value={formData.email}
+                                                value={formData.username}
                                                 onChange={handleInputChange}
                                                 placeholder="Enter your email"
                                                 className={`w-full pl-10 pr-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300 focus:bg-white'

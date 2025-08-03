@@ -1,5 +1,25 @@
 import db from "../db/db.js";
-import { getBestEmployeeForTask } from "../services/aiTaskAssigner.js";
+import axios from "axios";
+
+
+const getAIData = async () => {
+  const [employees] = await db.promise().query("SELECT id FROM employees");
+  const result = [];
+
+  for (const emp of employees) {
+    const [skills] = await db.promise().query("SELECT skill_name FROM skills WHERE employee_id = ?", [emp.id]);
+    const [taskCount] = await db.promise().query("SELECT COUNT(*) AS count FROM tasks WHERE assigned_to = ? AND status != 'Completed'", [emp.id]);
+
+    result.push({
+      id: emp.id,
+      skills: skills.map(s => s.skill_name),
+      workload: taskCount[0].count
+    });
+  }
+
+  return result;
+};
+
 
 
 // Get employees list (id and full_name)
@@ -23,40 +43,36 @@ export const getEmployees = (req, res) => {
 
 export const addTask = async (req, res) => {
   try {
-    const { title, description, priority, deadline, status, requiredSkill } = req.body;
+    console.log(req.body);
+    
+    const { title, description, priority, deadline, status} = req.body;
 
-    if (!title || !description || !priority || !deadline || !status || !requiredSkill) {
+    if (!title || !description || !priority || !deadline || !status ) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const bestEmployee = await getBestEmployeeForTask(requiredSkill);
-
-    if (!bestEmployee) {
-      return res.status(400).json({ message: "No suitable employee found for assignment" });
+    const aiData= {
+      title: title,
+      description : description,
+      priority: priority
     }
+    await axios.post("http://127.0.0.1:5001/assign-task",aiData).then((aires)=>{
+      console.log(aires);
+       const q = "Insert Into tasks (title, description, priority, deadline, status, assigned_to) Values (?,?,?,?,?,?)"
+   db.query(q,[title, description, priority, deadline, status, aires.data.assigned_to],(err, result)=>{
+    if(err){
+      return res.send(err);
+    }
+    return res.send({result, message:`task assign to employee_id: ${aires.data.assigned_to}`,assign_id:aires.data.assigned_to});
 
-    const assigned_to = bestEmployee.id;
+   });
 
-    const [result] = await db.promise().query(
-      `INSERT INTO tasks 
-       (title, description, priority, deadline, status, assigned_to) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [title, description, priority, deadline, status, assigned_to]
-    );
 
-    return res.status(201).json({
-      message: "Task created successfully",
-      task: {
-        id: result.insertId,
-        title,
-        description,
-        priority,
-        deadline,
-        status,
-        assigned_to,
-      }
-    });
-
+    }).catch((err)=>{
+      console.log(err);
+      
+    })
+  
   } catch (error) {
     console.error("Error in addTask:", error);
     return res.status(500).json({ message: "Server error", error });

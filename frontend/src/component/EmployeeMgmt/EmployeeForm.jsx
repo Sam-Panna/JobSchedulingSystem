@@ -41,8 +41,8 @@ const EmployeeForm = () => {
     
     
     try {
-      // Simulate API call for demo
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      
       
       // In real implementation, uncomment this:
       await axios.post('http://localhost:5000/api/addemployees', data).then((res)=>{
@@ -62,7 +62,7 @@ const EmployeeForm = () => {
         skills: []
       })
       
-      setTimeout(() => setShowSuccess(false), 3000)
+      
     } catch (error) {
       console.error('Error submitting form:', error)
     } finally {

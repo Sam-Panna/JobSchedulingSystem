@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const TaskForm = ({ onTaskAdded, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -7,7 +8,7 @@ const TaskForm = ({ onTaskAdded, onCancel }) => {
     priority: 'Medium',
     deadline: '',
     status: 'Pending',
-    requiredSkill: '',
+   
   });
 
   const handleChange = (e) => {
@@ -16,24 +17,24 @@ const TaskForm = ({ onTaskAdded, onCancel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/api/add-tasks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+   
+     await axios.post("http://localhost:5000/api/add-tasks",formData).then(async(res)=>{
+      console.log(res.data.assign_id);
+      const empres= await axios.get(`http://localhost:5000/api/get-single-employee/${res.data.assign_id}`)
+      console.log(empres);
+      
 
-      const data = await res.json();
-      if (res.ok) {
-        alert("✅ Task created & assigned to best employee");
-        onTaskAdded && onTaskAdded();
-        onCancel && onCancel(); // close the form
-      } else {
-        alert("❌ Error: " + data.message);
-      }
-    } catch (err) {
-      alert("❌ Server Error");
-    }
+      alert(`task assigned to ${empres.data[0].full_name}`)
+
+     }
+    ).catch((err)=>{
+      console.log(err);
+      
+    })
+
+     
+      
+   
   };
 
   return (
@@ -177,34 +178,6 @@ const TaskForm = ({ onTaskAdded, onCancel }) => {
             </select>
           </div>
 
-          {/* Required Skill */}
-          <div className="sm:col-span-2">
-            <label 
-              className="block text-sm font-semibold mb-2"
-              style={{ color: '#2E2E2E' }}
-            >
-              🛠️ Required Skills
-            </label>
-            <input
-              name="requiredSkill"
-              value={formData.requiredSkill}
-              onChange={handleChange}
-              placeholder="e.g., React, Python, Data Analysis, Design"
-              required
-              className="w-full px-4 py-3 rounded-lg border-2 shadow-sm transition-all duration-200 focus:outline-none focus:ring-2"
-              style={{
-                borderColor: '#8E3B46',
-                backgroundColor: '#ffffff',
-                color: '#2E2E2E'
-              }}
-            />
-            <p 
-              className="text-xs mt-1 opacity-70"
-              style={{ color: '#2E2E2E' }}
-            >
-              Separate multiple skills with commas
-            </p>
-          </div>
         </div>
 
         {/* Buttons */}
