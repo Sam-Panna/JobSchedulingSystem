@@ -57,13 +57,22 @@ export const addTask = async (req, res) => {
       priority: priority
     }
     await axios.post("http://127.0.0.1:5001/assign-task",aiData).then((aires)=>{
-      console.log(aires);
+      // console.log(aires);
        const q = "Insert Into tasks (title, description, priority, deadline, status, assigned_to) Values (?,?,?,?,?,?)"
    db.query(q,[title, description, priority, deadline, status, aires.data.assigned_to],(err, result)=>{
     if(err){
       return res.send(err);
     }
-    return res.send({result, message:`task assign to employee_id: ${aires.data.assigned_to}`,assign_id:aires.data.assigned_to});
+    const query= "Update employees set availability =? , current_workload = current_workload+1  Where id = ?"
+    db.query(query,[0, aires.data.assigned_to],(err2, result2)=>{
+      if(err2){
+        return res.send(err2);
+      }else{
+        console.log({result2, message:`task assign to employee_id: ${aires.data.assigned_to}`,assign_id:aires.data.assigned_to});
+        
+        return res.send({result2, message:`task assign to employee_id: ${aires.data.assigned_to}`,assign_id:aires.data.assigned_to});
+      }
+    })
 
    });
 
