@@ -101,6 +101,17 @@ export const getSingleTask = (req, res) => {
   });
 };
 
+export const getTaskByEmployee = (req, res) =>{
+  const empId = req.params.id;
+
+  const q = `Select * From tasks Where assigned_to = ?`;
+
+  db.query(q, [empId], (err, result)=>{
+    if(err)return res.status(500).send({message : "Error fetching task", error: err});
+    return res.status(200).send({message : "Task fetched Successfully", data: result});
+  });
+};
+
 // Get all tasks
 // controller/tasks.js
 export const getAllTasks = async (req, res) => {

@@ -13,6 +13,7 @@ import AdminProfile from './component/Profile/AdminProfile'
 import EmployeeProfile from './component/Profile/EmployeeProfile'
 import EmployeeMain from './component/EmployeeDashboard/Layout/EmployeeMain'
 import EmployeeDashboard from './component/EmployeeDashboard/EmployeeDashboard'
+import MyTasks from './component/EmployeeDashboard/MyTasks'
 
 
 function App() {
@@ -68,6 +69,10 @@ function App() {
           path:"",
           element:<EmployeeDashboard/>
           
+        },
+        {
+          path:"/employee-dashboard/mytasks",
+          element:<MyTasks/>
         }
       ]
     }

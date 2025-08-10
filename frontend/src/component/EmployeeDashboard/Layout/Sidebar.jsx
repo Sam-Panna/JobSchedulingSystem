@@ -6,6 +6,7 @@ import { IoIosPeople } from "react-icons/io";
 import { FaClipboardList } from "react-icons/fa";
 import { IoBarChart } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
+import { GoTasklist } from "react-icons/go";
 
 const Sidebar = () => {
   return (
@@ -16,10 +17,9 @@ const Sidebar = () => {
         <input type="search" name="" id="" className='border-2 rounded-lg w-[100%] p-1 bg-white text-[#263437]' placeholder='Search' />
       </div>
       <ul className='flex flex-col gap-1.5'>
-        <li className='flex items-center gap-2'><MdDashboard /><Link to="/dashboard">Dashboard</Link></li>
-        <li className='flex items-center gap-2'><IoIosPeople /><Link to="/dashboard/employee-table">Employee Management</Link></li>
-        <li className='flex items-center gap-2'><FaClipboardList /><Link to="/dashboard/task-management">Task Management</Link>
-        </li>
+        <li className='flex items-center gap-2'><MdDashboard /><Link to="/employee-dashboard">Dashboard</Link></li>
+        <li className='flex items-center gap-2'><GoTasklist className='text-[1.3rem]' /><Link to="/employee-dashboard/mytasks">My Tasks</Link></li>
+        
         <li className='flex items-center gap-2'><IoBarChart />Performance Report</li>
         <li className='flex items-center gap-2'><FaUserCircle />Profile</li>
       </ul>
