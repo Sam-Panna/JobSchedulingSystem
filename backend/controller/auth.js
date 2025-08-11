@@ -73,3 +73,35 @@ export const login = (req, res) =>{
 
     
 }
+
+export const changePassword = (req, res) =>{
+    const{username, currentPassword, newPassword } = req.body
+    console.log(username, currentPassword, newPassword);
+    
+    const q = "Select * From users Where username = ?";
+
+    db.query(q,[username],(err, data)=>{
+        if(err){
+            return res.send({err, message:"database error"});
+        }
+       console.log(data);
+       
+       const comparePassword = bcrypt.compareSync(currentPassword, data[0].password_hash);
+       if(!comparePassword){
+        return res.send({message:"Current Password not matched", status:0});
+       }
+       
+       const salt = bcrypt.genSaltSync();
+       const hashPassword = bcrypt.hashSync(newPassword, salt);
+
+       const q = "Update users Set password_hash = ?"
+       db.query(q,[hashPassword],(err1, result)=>{
+        if(err1){
+            return res.send({err1, message:"Error while updating Password"});
+        }
+        return res.send({message:"Password updated successfully", status:1});
+       })
+    })
+
+
+}

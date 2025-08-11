@@ -21,7 +21,7 @@ const Sidebar = () => {
         <li className='flex items-center gap-2'><GoTasklist className='text-[1.3rem]' /><Link to="/employee-dashboard/mytasks">My Tasks</Link></li>
         
         <li className='flex items-center gap-2'><IoBarChart />Performance Report</li>
-        <li className='flex items-center gap-2'><FaUserCircle />Profile</li>
+        <li className='flex items-center gap-2'><FaUserCircle /><Link to= "/employee-dashboard/employee-profile">Profile</Link></li>
       </ul>
 
     </div>

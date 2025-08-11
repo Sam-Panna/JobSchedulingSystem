@@ -107,7 +107,7 @@ const EmployeeProfile = () => {
         return (
           <div className="space-y-6">
             <div>
-              <label className="block mb-2 text-gray-200 font-medium">Change Email</label>
+              <label className="block mb-2 text-gray-200 font-medium">Enter Current Password</label>
               <input 
                 className="w-full text-gray-200 p-3 rounded-lg focus:outline-none border-2 focus:border-opacity-100 transition-all duration-200" 
                 style={{ 
@@ -117,8 +117,8 @@ const EmployeeProfile = () => {
                 }}
                 onFocus={(e) => e.target.style.borderColor = '#F4A259'}
                 onBlur={(e) => e.target.style.borderColor = '#8E3B46'}
-                type="email" 
-                placeholder="New Email" 
+                type="password" 
+                placeholder="Enter Current Password" 
               />
             </div>
             <div>
@@ -134,6 +134,21 @@ const EmployeeProfile = () => {
                 onBlur={(e) => e.target.style.borderColor = '#8E3B46'}
                 type="password" 
                 placeholder="New Password" 
+              />
+            </div>
+            <div>
+              <label className="block mb-2 text-gray-200 font-medium">Change Password</label>
+              <input 
+                className="w-full text-gray-200 p-3 rounded-lg focus:outline-none border-2 focus:border-opacity-100 transition-all duration-200" 
+                style={{ 
+                  backgroundColor: '#2E2E2E', 
+                  borderColor: '#8E3B46',
+                  focusBorderColor: '#F4A259'
+                }}
+                onFocus={(e) => e.target.style.borderColor = '#F4A259'}
+                onBlur={(e) => e.target.style.borderColor = '#8E3B46'}
+                type="password" 
+                placeholder="Retype New Password" 
               />
             </div>
             <button 

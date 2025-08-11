@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { User, Edit3, Save, X, Lock, Settings, Trash2, Eye, EyeOff, Shield, Bell, UserCog } from 'lucide-react';
+import { User, Edit3, Save, X, Lock, Trash2, Eye, EyeOff, Shield, Bell, UserCog } from 'lucide-react';
 
 // Navigation Component
 const NavigationTabs = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'security', label: 'Security', icon: Shield },
-    { id: 'settings', label: 'Settings', icon: Settings },
+    
     { id: 'danger', label: 'Danger Zone', icon: Trash2 }
   ];
 
@@ -365,107 +365,7 @@ const SecuritySection = () => {
   );
 };
 
-// Settings Section Component
-const SettingsSection = () => {
-  const [settings, setSettings] = useState({
-    emailNotifications: true,
-    twoFactorAuth: false,
-    loginAlerts: true,
-    darkMode: true,
-    sessionTimeout: '30'
-  });
 
-  return (
-    <div>
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 rounded-lg" style={{ backgroundColor: '#8E3B46' }}>
-          <Settings size={20} className="text-white" />
-        </div>
-        <h2 className="text-2xl font-bold text-white">Account Settings</h2>
-      </div>
-      
-      <div className="space-y-4">
-        <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#F7E8D0' }}>
-          <div className="flex items-center gap-3">
-            <Bell size={20} style={{ color: '#8E3B46' }} />
-            <div>
-              <h3 className="font-semibold" style={{ color: '#8E3B46' }}>Email Notifications</h3>
-              <p className="text-sm text-gray-600">Receive email updates about your account</p>
-            </div>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={settings.emailNotifications}
-              onChange={(e) => setSettings({...settings, emailNotifications: e.target.checked})}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-          </label>
-        </div>
-        
-        <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#F7E8D0' }}>
-          <div className="flex items-center gap-3">
-            <Shield size={20} style={{ color: '#8E3B46' }} />
-            <div>
-              <h3 className="font-semibold" style={{ color: '#8E3B46' }}>Two-Factor Authentication</h3>
-              <p className="text-sm text-gray-600">Add an extra layer of security to your account</p>
-            </div>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={settings.twoFactorAuth}
-              onChange={(e) => setSettings({...settings, twoFactorAuth: e.target.checked})}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-          </label>
-        </div>
-        
-        <div className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: '#F7E8D0' }}>
-          <div className="flex items-center gap-3">
-            <Lock size={20} style={{ color: '#8E3B46' }} />
-            <div>
-              <h3 className="font-semibold" style={{ color: '#8E3B46' }}>Login Alerts</h3>
-              <p className="text-sm text-gray-600">Get notified of new login attempts</p>
-            </div>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={settings.loginAlerts}
-              onChange={(e) => setSettings({...settings, loginAlerts: e.target.checked})}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-          </label>
-        </div>
-        
-        <div className="p-4 rounded-lg" style={{ backgroundColor: '#F7E8D0' }}>
-          <div className="flex items-center gap-3 mb-3">
-            <Settings size={20} style={{ color: '#8E3B46' }} />
-            <div>
-              <h3 className="font-semibold" style={{ color: '#8E3B46' }}>Session Timeout</h3>
-              <p className="text-sm text-gray-600">Automatically log out after inactivity</p>
-            </div>
-          </div>
-          <select
-            value={settings.sessionTimeout}
-            onChange={(e) => setSettings({...settings, sessionTimeout: e.target.value})}
-            className="w-full p-2 rounded border-2 focus:outline-none"
-            style={{ borderColor: '#8E3B46' }}
-          >
-            <option value="15">15 minutes</option>
-            <option value="30">30 minutes</option>
-            <option value="60">1 hour</option>
-            <option value="120">2 hours</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // Danger Zone Section Component
 const DangerZoneSection = () => {
@@ -542,8 +442,6 @@ const AdminProfile = () => {
         return <ProfileSection />;
       case 'security':
         return <SecuritySection />;
-      case 'settings':
-        return <SettingsSection />;
       case 'danger':
         return <DangerZoneSection />;
       default:

@@ -54,11 +54,8 @@ function App() {
        {
           path: "admin-profile",
           element: <AdminProfile />
-        },
-        {
-          path:"employee-profile",
-          element:<EmployeeProfile/>
         }
+       
       ]
     },
     {
@@ -73,6 +70,10 @@ function App() {
         {
           path:"/employee-dashboard/mytasks",
           element:<MyTasks/>
+        },
+         {
+          path:"employee-profile",
+          element:<EmployeeProfile/>
         }
       ]
     }
