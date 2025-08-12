@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { User, ClipboardList, Activity, CalendarCheck, Settings } from 'lucide-react';
+import axios from 'axios';
 
 const dummyTasks = [
   { id: 1, title: 'Task A', status: 'Completed', date: '2025-07-01' },
@@ -21,7 +22,40 @@ const leaveStatus = [
 ];
 
 const EmployeeProfile = () => {
+    const [data, setData] = useState({
+      username: 'sampanna11@gmail.com',
+      currentPassword: '',
+      newPassword: '',
+      retypeNewPassword:''
+      
+    })
   const [selectedMenu, setSelectedMenu] = useState('Personal Info');
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  const handleChangePassword = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+  //console.log(data);
+  
+
+  const handleSubmitPassword = async(e) =>{
+      e.preventDefault();
+
+      await axios.post("http://localhost:5000/api/changePassword", data).then((res)=>{
+        if(res.data.status === 1){
+          alert(res.data.message);
+        }else{
+          alert(res.data.message);
+        }
+        
+      }).catch((err)=>{
+        console.log(err);
+        
+      })
+
+  }
+
 
   const renderContent = () => {
     switch (selectedMenu) {
@@ -109,6 +143,9 @@ const EmployeeProfile = () => {
             <div>
               <label className="block mb-2 text-gray-200 font-medium">Enter Current Password</label>
               <input 
+                onChange={handleChangePassword}
+                value={data.currentPassword}
+                name='currentPassword'
                 className="w-full text-gray-200 p-3 rounded-lg focus:outline-none border-2 focus:border-opacity-100 transition-all duration-200" 
                 style={{ 
                   backgroundColor: '#2E2E2E', 
@@ -124,6 +161,8 @@ const EmployeeProfile = () => {
             <div>
               <label className="block mb-2 text-gray-200 font-medium">Change Password</label>
               <input 
+                onChange={handleChangePassword}
+                name='newPassword'
                 className="w-full text-gray-200 p-3 rounded-lg focus:outline-none border-2 focus:border-opacity-100 transition-all duration-200" 
                 style={{ 
                   backgroundColor: '#2E2E2E', 
@@ -139,6 +178,8 @@ const EmployeeProfile = () => {
             <div>
               <label className="block mb-2 text-gray-200 font-medium">Change Password</label>
               <input 
+                onChange={handleChangePassword}
+                name='retypeNewPassword'
                 className="w-full text-gray-200 p-3 rounded-lg focus:outline-none border-2 focus:border-opacity-100 transition-all duration-200" 
                 style={{ 
                   backgroundColor: '#2E2E2E', 
@@ -152,6 +193,7 @@ const EmployeeProfile = () => {
               />
             </div>
             <button 
+              onClick={handleSubmitPassword}
               className="w-full text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 hover:opacity-90"
               style={{ backgroundColor: '#F4A259' }}
             >
