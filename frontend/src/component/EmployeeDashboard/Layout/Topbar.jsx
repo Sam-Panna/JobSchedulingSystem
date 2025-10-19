@@ -1,5 +1,6 @@
 import React from 'react'
 import { GoBellFill } from "react-icons/go";
+import { IoLogOut } from "react-icons/io5";
 
 
 const Topbar = () => {
@@ -14,6 +15,7 @@ const Topbar = () => {
           alt="User avatar"
         />
         </div>
+        <IoLogOut className='text-2xl hover:text-red-700 cursor-pointer'/>
     </div>
   )
 }

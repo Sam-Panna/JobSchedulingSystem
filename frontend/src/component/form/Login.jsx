@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Eye, EyeOff, Mail, Lock, ArrowRight, Github, Chrome } from 'lucide-react';
 import img from '../../image/login.svg'
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
+import { AuthContext } from '../../context/authContext';
 
 const Login = () => {
+    const {login}= useContext(AuthContext)
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -61,13 +63,14 @@ const Login = () => {
   setIsLoading(true);
 
   try {
-    const res = await axios.post("http://localhost:5000/api/login", formData);
+    const res = await login(formData);
     setIsLoading(false);
 
     const response = res.data;
      // ✅ use res.data directly
 
      console.log(res);
+     localStorage.setItem("token", res.data.token)
      
 
     if (response.message === "Login successful") {
