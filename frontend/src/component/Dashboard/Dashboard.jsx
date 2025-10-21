@@ -8,23 +8,42 @@ const Dashboard = () => {
   const [pendingTasks, setPendingTasks] = useState(0)
   const [completedTasks, setCompletedTasks] = useState(0)
   const [totalEmployees, setEmployees] = useState(0)
+  const [workloadData, setWorkloadData] = useState([])
   const [data, setData] = useState([])
 
   const getAllTask = () => {
     axios.get('http://localhost:5000/api/tasks').then((res) => {
-      // console.log(res);
+      console.log(res);
       setData(res.data);
       setTotalTasks(res.data.length);
-     
-      
-      setPendingTasks(()=>(res.data.filter(curElem=>
-         curElem.status === 'Pending' 
+
+
+      setPendingTasks(() => (res.data.filter(curElem =>
+        curElem.status === 'Pending'
       )).length);
 
-      setCompletedTasks(()=>(
+      setCompletedTasks(() => (
         res.data.filter(curElem =>
           curElem.status === "Completed"
         )).length);
+
+
+      let graphData = []
+      res.data.filter(curElem =>
+        graphData.push({
+          name: curElem.employeeName, tasks: (res.data.filter(myElem =>
+            curElem.assigned_to === myElem.assigned_to
+          )).length
+        })
+      )
+      let uniqueGraphData = graphData.filter(
+        (obj, index, self) =>
+          index === self.findIndex(
+            (o) => o.name === obj.name && o.tasks === obj.tasks
+          )
+      );
+      console.log(uniqueGraphData);
+      setWorkloadData(uniqueGraphData);
 
     }
     ).catch((err) => {
@@ -34,16 +53,16 @@ const Dashboard = () => {
 
   }
 
-  const getEmployee = () =>{
-    axios.get('http://localhost:5000/api/employee-data').then((res) =>{
-      console.log(res);
+  const getEmployee = () => {
+    axios.get('http://localhost:5000/api/employee-data').then((res) => {
+      // console.log(res);
 
-      setEmployees(()=>(res.data.data.filter(curElem=>
-      curElem.role === "employee")).length);
-      
-    }).catch((err)=>{
+      setEmployees(() => (res.data.data.filter(curElem =>
+        curElem.role === "employee")).length);
+
+    }).catch((err) => {
       console.log(err);
-      
+
     })
   }
   useEffect(() => {
@@ -59,13 +78,13 @@ const Dashboard = () => {
   // const completedTasks = 65;
   // const totalEmployees = 10;
 
-  const workloadData = [
-    { name: 'Sampanna', tasks: 12 },
-    { name: 'Anuradha', tasks: 8 },
-    { name: 'Shine', tasks: 10 },
-    { name: 'Ram', tasks: 7 },
-    { name: 'Eve', tasks: 13 },
-  ];
+  // const workloadData = [
+  //   { name: 'Sampanna', tasks: 12 },
+  //   { name: 'Anuradha', tasks: 8 },
+  //   { name: 'Shine', tasks: 10 },
+  //   { name: 'Ram', tasks: 7 },
+  //   { name: 'Eve', tasks: 13 },
+  // ];
 
   const suggestedEmployee = "Eve";
 
